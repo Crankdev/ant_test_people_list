@@ -1,0 +1,36 @@
+<h3>New Task Form</h3>
+<!--div *ngIf="people; then valids else error">
+</div>
+<ng-template #valids-->
+  <label>Firstname: </label>
+  <input type="text" id="firstname" placeholder="What is you Firstname?"
+         [(ngModel)]="people.firstname"
+         required minlength="2" maxlength="25"
+         #firstname='ngModel' autofocus>
+  <label>Lastname: </label>
+  <input type="text" id="lastname" placeholder="What is you Lastname?"
+         [(ngModel)]="people.lastname"
+         required minlength="2" maxlength="25"
+         #lastname='ngModel' autofocus>
+  <label>Age: </label>
+  <input type="number" id="age" placeholder="What is you age?"
+         [(ngModel)]="people.age"
+         required minlength="2" maxlength="4"
+         #age='ngModel' autofocus>
+<!--/ng-template>
+<ng-template #error>
+    People with this id not exist
+</ng-template-->
+
+<div *ngIf="firstname.dirty && lastname.dirty && age.dirty">
+  <span *ngIf='firstname.errors && lastname.dirty && age.dirty; then errors else valid'>template renders here...</span>
+</div>
+
+<ng-template #valid>
+  <p class="help is-success">looks good!</p>
+  <button class="button is-primary" (click)='updatePeopl()' [disabled]="!firstname.valid && !lastname.valid && !age.valid">Create</button>
+</ng-template>
+
+<ng-template #errors>
+  <p class="help is-danger">form contains errors!</p>
+</ng-template>

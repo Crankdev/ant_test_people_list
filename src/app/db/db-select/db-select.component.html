@@ -1,0 +1,65 @@
+<people-form> </people-form>
+<br>
+<h1>List of peoples</h1>
+<input type="text" [(ngModel)]="searchText"
+       class="form-control" placeholder="Search on Page By Lastname" />
+<table style="width: 100%;">
+     <thead>
+          <tr>
+               <th (click)="sort('id')">
+                    <i class="fa"
+                        [ngClass]="{'fa-sort': column != 'id',
+                        'fa-sort-asc': (column == 'id' && !isDesc),
+                        'fa-sort-desc': (column == 'id' && isDesc) }"
+                                           aria-hidden="true"></i>ID</th>
+               <th (click)="sort('firstname')">
+                    <i class="fa"
+                       [ngClass]="{'fa-sort': column != 'firstname',
+                        'fa-sort-asc': (column == 'firstname' && !isDesc),
+                        'fa-sort-desc': (column == 'firstname' && isDesc) }"
+                       aria-hidden="true"></i>Name</th>
+               <th (click)="sort('lastname')">
+                    <i class="fa"
+                       [ngClass]="{'fa-sort': column != 'lastname',
+                        'fa-sort-asc': (column == 'lastname' && !isDesc),
+                        'fa-sort-desc': (column == 'lastname' && isDesc) }"
+                       aria-hidden="true"></i>Lastname</th>
+               <th (click)="sort('age')">
+                    <i class="fa"
+                       [ngClass]="{'fa-sort': column != 'age',
+                        'fa-sort-asc': (column == 'age' && !isDesc),
+                        'fa-sort-desc': (column == 'age' && isDesc) }"
+                       aria-hidden="true"></i>Age</th>
+               <th>Actions</th>
+          </tr>
+     </thead>
+     <tr *ngFor="let peopl of pagedItems | lastname: searchText" class="card">
+          <td><a [routerLink]="['/detail', peopl.id]">{{ peopl.id }}</a></td>
+          <td>{{ peopl.firstname }} </td><td>{{ peopl.lastname }}</td>
+          <td>{{ peopl.age }}</td>
+          <td>
+               <button class="button is-primary" (click)='deletePeopl( peopl )' >delete</button>
+               <a [routerLink]="['/detail', peopl.id]"><button>edit</button></a>
+          </td>
+     </tr>
+
+</table>
+<div class="paginator">
+     <ul *ngIf="pager.pages" class="pagination">
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+               <a (click)="setPage(1)">First</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+               <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+          </li>
+          <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+               <a (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+               <a (click)="setPage(pager.currentPage + 1)">Next</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+               <a (click)="setPage(pager.totalPages)">Last</a>
+          </li>
+     </ul>
+</div>

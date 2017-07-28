@@ -1,0 +1,31 @@
+<h3>New People add</h3>
+<label>Firstname: </label>
+<input type="text" id="firstname" placeholder="What is you Firstname?"
+       [(ngModel)]="people.firstname"
+       required minlength="2" maxlength="25"
+       #firstname='ngModel' autofocus>
+
+<label>Lastname: </label>
+<input type="text" id="lastname" placeholder="What is you Lastname?"
+       [(ngModel)]="people.lastname"
+       required minlength="2" maxlength="25"
+       #lastname='ngModel' autofocus>
+
+<label>Age: </label>
+<input type="number" id="age" placeholder="What is you age?"
+       [(ngModel)]="people.age"
+       required minlength="1" maxlength="3"
+       #age='ngModel' autofocus>
+
+<div *ngIf="firstname.dirty && lastname.dirty && age.dirty">
+  <span *ngIf='firstname.errors && lastname.dirty && age.dirty; then errors else valid'>template renders here...</span>
+</div>
+
+<ng-template #valid>
+  <p class="help is-success">looks good!</p>
+  <button class="button is-primary" (click)='createItem()' [disabled]="!firstname.valid && !lastname.valid && !age.valid">Create</button>
+</ng-template>
+
+<ng-template #errors>
+  <p class="help is-danger">form contains errors!</p>
+</ng-template>
